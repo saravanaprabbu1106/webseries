@@ -1,0 +1,72 @@
+1. Title
+Movies and Web Series Review & Rating Aggregation Platform
+
+2. Domain
+Web Application (Entertainment & Media)
+
+3. Who is the User?
+The application is designed for the following users:
+Admin: Manages movies, web series, users, reviews, and platform content.
+Registered User: Registers an account, submits ratings and reviews, and manages a personal favorites list.
+Guest User: Browses movies, web series, ratings, and reviews without creating an account.
+
+4. What Problem Are We Solving?
+People usually visit multiple websites and social media platforms to check reviews and ratings before deciding what to watch.
+ Since the information is scattered across different sources, it becomes time-consuming and sometimes confusing to compare opinions. 
+This platform brings movie and web series reviews and ratings together in one place, allowing users to make informed decisions quickly. 
+It also enables users to share their own opinions and discover highly rated content.
+
+5. Proposed Solution
+The proposed web application will provide the following features:
+User Registration and Login
+Browse Movies and Web Series
+Search by Title, Genre, or Language
+View Movie and Web Series Details
+Submit Ratings and Reviews
+Display Average Ratings
+View Trending and Top-Rated Content
+Save Movies and Web Series to Favorites
+Admin Dashboard for Managing Users, Content, and Reviews
+
+6. Core Entities / Database Tables
+Users
+Movies
+Web Series
+Reviews
+Ratings
+Genres
+Favorites
+
+7. User Roles & Permissions
+Admin
+Add, update, and delete movies and web series.
+Manage user accounts.
+Moderate or remove inappropriate reviews.
+Monitor platform activities.
+Registered User
+Register and log in.
+Search and browse movies and web series.
+Submit ratings and reviews.
+Edit or delete their own reviews.
+Add titles to their favorites.
+Guest User
+Browse movies and web series.
+View ratings and reviews.
+Search content without logging in.
+
+8. Success Criteria
+Users should be able to search for a movie or web series within 10 seconds.
+Users should be able to submit a rating and review in less than one minute.
+Average ratings should be updated automatically after every new rating.
+The application should provide a user-friendly and responsive interface.
+
+9. Out of Scope
+The following features are not included in this project:
+Movie or Web Series Streaming
+Online Ticket Booking
+Subscription or Payment Gateway
+Live Chat or Messaging
+Video Uploads by Users
+
+10. Chosen Track
+Python (Django Framework)
