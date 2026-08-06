@@ -45,9 +45,11 @@
                         {{ movie.description|truncatewords:20 }}
                     </p>
 
-                    <button class="btn btn-warning">
-                        ⭐ View Reviews
-                    </button>
+                    <a href="{% url 'review_list' movie.id %}" class="btn btn-warning">
+    ⭐ View Reviews
+</a>
+                
+                    
 
                 </div>
 
