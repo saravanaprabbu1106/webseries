@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }}</title>
+</head>
+
+<body>
+
+    <a href="{% url 'home' %}">
+        Home
+    </a>
+
+    <h1>{{ movie.title }}</h1>
+
+    {% if movie.poster %}
+        <img
+            src="{{ movie.poster }}"
+            alt="{{ movie.title }}"
+            width="200"
+        >
+    {% endif %}
+
+    <p>
+        <strong>Type:</strong>
+        {{ movie.get_content_type_display }}
+    </p>
+
+    <p>
+        <strong>Genre:</strong>
+
+        {% if movie.genre %}
+            {{ movie.genre.name }}
+        {% else %}
+            Not specified
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Release Year:</strong>
+        {{ movie.release_year|default:"N/A" }}
+    </p>
+
+    <p>
+        <strong>Description:</strong>
+        {{ movie.description }}
+    </p>
+
+    <p>
+        <strong>Average Rating:</strong>
+        ⭐ {{ movie.average_rating }}/5
+    </p>
+
+    <a href="{% url 'review_list' movie.id %}">
+        Read / Add Reviews
+    </a>
+
+</body>
+</html>

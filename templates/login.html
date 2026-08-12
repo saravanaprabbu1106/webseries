@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login - Movie Review Platform</title>
+    <title>Login - Movie & Web Series Review Platform</title>
 </head>
 
 <body>
 
-    <h1>Movie Review & Rating Platform</h1>
-
-    <h2>Login</h2>
+    <h1>Login</h1>
 
     {% if messages %}
         {% for message in messages %}
@@ -16,23 +14,53 @@
         {% endfor %}
     {% endif %}
 
-    <form method="POST">
+    <form method="POST" autocomplete="off">
+
         {% csrf_token %}
 
-        <label>Username</label><br>
-        <input type="text" name="username" autocomplete="off">
-        <br><br>
+        <div>
+            <label for="username">Username</label>
 
-        <label>Password</label><br>
-        <input type="password" name="password" autocomplete="new-password" required>
-        <br><br>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="off"
+                placeholder="Enter your username"
+                required
+            >
+        </div>
 
-        <button type="submit">Login</button>
+        <br>
+
+        <div>
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="new-password"
+                placeholder="Enter your password"
+                required
+            >
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Login
+        </button>
+
     </form>
+
+    <br>
 
     <p>
         Don't have an account?
-        <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'register' %}">
+            Register
+        </a>
     </p>
 
 </body>

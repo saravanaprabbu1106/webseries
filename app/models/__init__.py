@@ -1,0 +1,1 @@
+from.models import Movie,Genre,Review,Rating

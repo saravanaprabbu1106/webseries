@@ -1,100 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Movies & Web Series Review & Rating Platform</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Movie & Web Series Reviews</title>
 </head>
 
-<body class="bg-dark">
+<body>
 
-<nav class="navbar navbar-dark bg-black shadow">
-    <div class="container">
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
 
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-            🎬 Movie Review & Rating Platform
-        </a>
+        {% if user.is_authenticated %}
+            |
+            <span>Welcome, {{ user.username }}</span>
+            |
+            <a href="{% url 'logout' %}">Logout</a>
+        {% endif %}
+    </nav>
+
+    <hr>
+
+    <h1>Movie & Web Series Review Platform</h1>
+
+    <h2>Movies & Web Series</h2>
+
+    {% for movie in movies %}
 
         <div>
-            {% if user.is_authenticated %}
+            <h3>{{ movie.title }}</h3>
 
-                <span class="text-white me-3">
-                    Welcome, {{ user.username }}
-                </span>
+            <p>
+                Type: {{ movie.get_content_type_display }}
+            </p>
 
-                <a href="{% url 'logout' %}" class="btn btn-danger btn-sm">
-                    Logout
-                </a>
+            <p>
+                Genre:
+                {% if movie.genre %}
+                    {{ movie.genre.name }}
+                {% else %}
+                    Not specified
+                {% endif %}
+            </p>
 
-            {% else %}
+            <p>
+                Release Year:
+                {{ movie.release_year|default:"N/A" }}
+            </p>
 
-                <a href="{% url 'login' %}" class="btn btn-success btn-sm me-2">
-                    Login
-                </a>
+            <p>
+                Average Rating:
+                ⭐ {{ movie.average_rating }}/5
+            </p>
 
-                <a href="{% url 'register' %}" class="btn btn-primary btn-sm">
-                    Register
-                </a>
+            <a href="{% url 'movie_detail' movie.id %}">
+                View Details
+            </a>
 
-            {% endif %}
+            |
+
+            <a href="{% url 'review_list' movie.id %}">
+                Reviews
+            </a>
         </div>
 
-    </div>
-</nav>
+        <hr>
 
+    {% empty %}
 
-<div class="container mt-5">
+        <p>No movies available.</p>
 
-    <h2 class="text-white mb-4">
-        Latest Movies & Web Series
-    </h2>
+        <p>
+            Add movies from
+            <a href="/admin/">Admin Panel</a>.
+        </p>
 
-    <div class="row">
-
-        {% for movie in movies %}
-
-        <div class="col-md-4 mb-4">
-
-            <div class="card shadow">
-
-                <div class="card-body">
-
-                    <h4>{{ movie.title }}</h4>
-
-                    {% if movie.genre %}
-                    <span class="badge bg-primary">
-                        {{ movie.genre }}
-                    </span>
-                    {% endif %}
-
-                    <br><br>
-
-                    <a href="{% url 'review_list' movie.id %}"
-                       class="btn btn-warning">
-                        ⭐ View Reviews
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {% empty %}
-
-        <div class="text-center text-white">
-            <h3>No Movies Available</h3>
-            <p>Add movies from the Django Admin Panel.</p>
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-</div>
+    {% endfor %}
 
 </body>
 </html>
