@@ -1,79 +1,403 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Movie & Web Series Reviews</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: white;
+        }
+
+        /* NAVBAR */
+        nav {
+            width: 100%;
+            padding: 20px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.35);
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #00d4ff;
+        }
+
+        .welcome {
+            color: #d8e8ff;
+        }
+
+        .logout-btn {
+            padding: 9px 16px;
+            background: #ff4757;
+            border-radius: 8px;
+        }
+
+        .logout-btn:hover {
+            color: white;
+            background: #e84118;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #cfd8e3;
+            font-size: 17px;
+        }
+
+        /* SECTIONS */
+        .section {
+            width: 86%;
+            margin: 30px auto 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            border-left: 5px solid #00d4ff;
+            padding-left: 12px;
+        }
+
+        /* CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 22px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .info {
+            color: #d6dce5;
+            margin: 9px 0;
+            font-size: 15px;
+        }
+
+        .rating {
+            color: #ffd32a;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        /* BUTTONS */
+        .buttons {
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 9px 14px;
+            border-radius: 8px;
+            background: #00a8ff;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #0097e6;
+            color: white;
+        }
+
+        .review-btn {
+            background: #8c7ae6;
+        }
+
+        .review-btn:hover {
+            background: #7158e2;
+        }
+
+        .empty {
+            color: #bfc7d5;
+            font-size: 16px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background: rgba(0,0,0,0.3);
+            color: #bfc7d5;
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+
+         nav {
+                padding: 16px 5%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-right {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+
+            .section {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
     <nav>
-        <a href="{% url 'home' %}">Home</a>
 
-        {% if user.is_authenticated %}
-            |
-            <span>Welcome, {{ user.username }}</span>
-            |
-            <a href="{% url 'logout' %}">Logout</a>
-        {% endif %}
-    </nav>
-
-    <hr>
-
-    <h1>Movie & Web Series Review Platform</h1>
-
-    <h2>Movies & Web Series</h2>
-
-    {% for movie in movies %}
-
-        <div>
-            <h3>{{ movie.title }}</h3>
-
-            <p>
-                Type: {{ movie.get_content_type_display }}
-            </p>
-
-            <p>
-                Genre:
-                {% if movie.genre %}
-                    {{ movie.genre.name }}
-                {% else %}
-                    Not specified
-                {% endif %}
-            </p>
-
-            <p>
-                Release Year:
-                {{ movie.release_year|default:"N/A" }}
-            </p>
-
-            <p>
-                Average Rating:
-                ⭐ {{ movie.average_rating }}/5
-            </p>
-
-            <a href="{% url 'movie_detail' movie.id %}">
-                View Details
-            </a>
-
-            |
-
-            <a href="{% url 'review_list' movie.id %}">
-                Reviews
-            </a>
+        <div class="logo">
+            🎬 ReviewHub
         </div>
 
-        <hr>
+        <div class="nav-right">
 
-    {% empty %}
+            <a href="{% url 'home' %}">Home</a>
 
-        <p>No movies available.</p>
+            {% if user.is_authenticated %}
+
+                <span class="welcome">
+                    Welcome, {{ user.username }}
+                </span>
+
+                <a href="{% url 'logout' %}" class="logout-btn">
+                    Logout
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>Movie & Web Series Review Platform</h1>
 
         <p>
-            Add movies from
-            <a href="/admin/">Admin Panel</a>.
+            Discover movies and web series, explore ratings and read reviews.
         </p>
 
-    {% endfor %}
+    </section>
+
+
+    <!-- MOVIES -->
+    <section class="section">
+
+        <h2 class="section-title">
+            🎬 Movies
+        </h2>
+
+        <div class="cards">
+
+            {% for movie in movies %}
+
+                {% if movie.content_type == "movie" %}
+
+                    <div class="card">
+
+                        <h3>
+                            {{ movie.title }}
+                        </h3>
+
+                        <p class="info">
+                            🎭 Genre:
+                            {% if movie.genre %}
+                                {{ movie.genre.name }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </p>
+
+                        <p class="info">
+                            📅 Release Year:
+                            {{ movie.release_year|default:"N/A" }}
+                        </p>
+
+                        <p class="rating">
+                            ⭐ {{ movie.average_rating }}/5
+                        </p>
+
+                        <div class="buttons">
+
+                            <a
+                                href="{% url 'movie_detail' movie.id %}"
+                                class="btn"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="{% url 'review_list' movie.id %}"
+                                class="btn review-btn"
+                            >
+                                Reviews
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% empty %}
+
+                <p class="empty">
+                    No movies available.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- WEB SERIES -->
+    <section class="section">
+
+        <h2 class="section-title">
+            📺 Web Series
+        </h2>
+
+        <div class="cards">
+
+            {% for movie in movies %}
+
+                {% if movie.content_type == "web_series" %}
+
+                    <div class="card">
+
+                        <h3>
+                            {{ movie.title }}
+                        </h3>
+
+                        <p class="info">
+                            🎭 Genre:
+                            {% if movie.genre %}
+                                {{ movie.genre.name }}
+                            {% else %}
+                                Not specified
+                            {% endif %}
+                        </p>
+
+                        <p class="info">
+                            📅 Release Year:
+                            {{ movie.release_year|default:"N/A" }}
+                        </p>
+                        
+                        <p class="rating">
+                            ⭐ {{ movie.average_rating }}/5
+                        </p>
+
+                        <div class="buttons">
+
+                            <a
+                                href="{% url 'movie_detail' movie.id %}"
+                                class="btn"
+                            >
+                                View Details
+                            </a>
+
+                            <a
+                                href="{% url 'review_list' movie.id %}"
+                                class="btn review-btn"
+                            >
+                                Reviews
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% empty %}
+
+                <p class="empty">
+                    No web series available.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        Movie & Web Series Review Platform © 2026
+    </footer>
 
 </body>
 </html>

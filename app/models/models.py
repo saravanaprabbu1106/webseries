@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Genre(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -40,7 +40,7 @@ class Movie(models.Model):
         blank=True
     )
 
-    def str(self):
+    def __str__(self):
         return self.title
 
     @property
@@ -71,7 +71,7 @@ class Review(models.Model):
         auto_now_add=True
     )
 
-    def str(self):
+    def __str__(self):
         return f"{self.user.username} - {self.movie.title}"
 
 
@@ -96,5 +96,5 @@ class Rating(models.Model):
             )
         ]
 
-    def str(self):
+    def __str__(self):
         return f"{self.user.username} - {self.movie.title} - {self.rating}"

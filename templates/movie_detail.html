@@ -2,32 +2,77 @@
 <html>
 <head>
     <title>{{ movie.title }}</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: rgba(0,0,0,0.45);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .poster {
+            display: block;
+            margin: 20px auto;
+            border-radius: 10px;
+            max-width: 200px;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        a {
+            display: inline-block;
+            margin: 8px 5px;
+            padding: 10px 18px;
+            background: #e50914;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        a:hover {
+            background: #b20710;
+        }
+    </style>
 </head>
 
 <body>
 
-    <a href="{% url 'home' %}">
-        Home
-    </a>
+<div class="container">
+
+    <a href="{% url 'home' %}">Home</a>
 
     <h1>{{ movie.title }}</h1>
 
     {% if movie.poster %}
-        <img
-            src="{{ movie.poster }}"
-            alt="{{ movie.title }}"
-            width="200"
-        >
+        <img class="poster"
+             src="{{ movie.poster }}"
+             alt="{{ movie.title }}">
     {% endif %}
 
-    <p>
-        <strong>Type:</strong>
+    <p><strong>Type:</strong>
         {{ movie.get_content_type_display }}
     </p>
 
-    <p>
-        <strong>Genre:</strong>
-
+    <p><strong>Genre:</strong>
         {% if movie.genre %}
             {{ movie.genre.name }}
         {% else %}
@@ -35,24 +80,23 @@
         {% endif %}
     </p>
 
-    <p>
-        <strong>Release Year:</strong>
+    <p><strong>Release Year:</strong>
         {{ movie.release_year|default:"N/A" }}
     </p>
 
-    <p>
-        <strong>Description:</strong>
+    <p><strong>Description:</strong>
         {{ movie.description }}
     </p>
 
-    <p>
-        <strong>Average Rating:</strong>
+    <p><strong>Average Rating:</strong>
         ⭐ {{ movie.average_rating }}/5
     </p>
 
     <a href="{% url 'review_list' movie.id %}">
         Read / Add Reviews
     </a>
+
+</div>
 
 </body>
 </html>

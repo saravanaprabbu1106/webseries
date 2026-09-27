@@ -67,12 +67,16 @@ TEMPLATES = [
 WSGI_APPLICATION = "webseries.wsgi.application"
 
 
-# Database
+# Database - MySQL
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "movie_review_db",
+        "USER": "root",
+        "PASSWORD": "prabbu2007",
+        "HOST": "localhost",
+        "PORT": "3306",
     }
 }
 
@@ -118,4 +122,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Session settings
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

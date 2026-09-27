@@ -2,20 +2,97 @@
 <html>
 <head>
     <title>{{ movie.title }} - Reviews</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+            background: rgba(0,0,0,0.45);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .review {
+            background: rgba(255,255,255,0.08);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+        }
+
+        textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #e50914;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #b20710;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #e50914;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        a:hover {
+            background: #b20710;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 25px 0;
+        }
+    </style>
 </head>
 
 <body>
 
-    <a href="{% url 'home' %}">
-        Home
-    </a>
+<div class="container">
+
+    <a href="{% url 'home' %}">Home</a>
 
     <h1>{{ movie.title }} - Reviews</h1>
 
-    <p>
-        Average Rating:
-        ⭐ {{ movie.average_rating }}/5
-    </p>
+    <h2>⭐ {{ movie.average_rating }}/5</h2>
 
     {% if messages %}
         {% for message in messages %}
@@ -29,30 +106,21 @@
 
     {% for item in reviews %}
 
-        <div>
+        <div class="review">
 
-            <strong>
-                {{ item.user.username }}
-            </strong>
+            <strong>{{ item.user.username }}</strong>
 
-            <p>
-                {{ item.review }}
-            </p>
+            <p>{{ item.review }}</p>
 
-            <small>
-                {{ item.created_at }}
-            </small>
+            <small>{{ item.created_at }}</small>
 
         </div>
-
-        <hr>
 
     {% empty %}
 
         <p>No reviews yet.</p>
 
     {% endfor %}
-
 
     {% if user.is_authenticated %}
 
@@ -64,10 +132,8 @@
 
             <h2>Add Your Review</h2>
 
-            <form
-                method="POST"
-                action="{% url 'add_review' movie.id %}"
-            >
+            <form method="POST"
+                  action="{% url 'add_review' movie.id %}">
 
                 {% csrf_token %}
 
@@ -86,14 +152,9 @@
 
                 <label>Review</label>
 
-                <br>
-
-                <textarea
-                    name="review"
-                    rows="5"
-                    cols="50"
-                    required
-                ></textarea>
+                <textarea name="review"
+                          rows="5"
+                          required></textarea>
 
                 <br><br>
 
@@ -108,13 +169,13 @@
     {% else %}
 
         <p>
-            <a href="{% url 'login' %}">
-                Login
-            </a>
+            <a href="{% url 'login' %}">Login</a>
             to write a review.
         </p>
 
     {% endif %}
+
+</div>
 
 </body>
 </html>
